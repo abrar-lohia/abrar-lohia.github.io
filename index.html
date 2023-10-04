@@ -35,36 +35,20 @@
     <!-- <div class="spinner"></div> -->
   </div>
   <div id="unity-fullscreen-button" style="display: none;"></div>
-  <script data-consolejs-channel="a4b8f673-ebb3-6b75-a5e9-25d392bac111" src="https://remotejs.com/agent/agent.js"></script>
+  <script data-consolejs-channel="45be322b-69cf-249f-53eb-4dd0c70a386f" src="https://remotejs.com/agent/agent.js"></script>
   <script>
-
-    var dataFile = "/NexShopBR__.data.unityweb";   
-
-    var c = document.createElement("canvas");  
-    
-    var gl = c.getContext("webgl");                                      
-    var gl2 = c.getContext("webgl2");                                    
-    if ((gl && gl.getExtension('WEBGL_compressed_texutre_astc')) || (gl2 &&   
-            gl2.getExtension('WEBGL_compressed_texutre_astc'))) {             
-      dataFile =  "/WebGL_Mobile.data";                                       
-    }        
-    
-    
-
     const hideFullScreenButton = "true";
     const buildUrl = "Build";
     const loaderUrl = buildUrl + "/NexShopBR__.loader.js";
     const config = {
-      dataUrl: buildUrl + dataFile,
-      frameworkUrl: buildUrl + "/NexShopBR__.framework.js.unityweb",    
-      codeUrl: buildUrl + "/NexShopBR__.wasm.unityweb",                           
+      dataUrl: buildUrl + "/NexShopBR__.data",
+      frameworkUrl: buildUrl + "/NexShopBR__.framework.js",
+      codeUrl: buildUrl + "/NexShopBR__.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "NexShop",
       productVersion: "0.1.0",
     };
-
-
 
     const container = document.querySelector("#unity-container");
     const canvas = document.querySelector("#unity-canvas");
