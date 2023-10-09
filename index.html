@@ -23,8 +23,8 @@
       <div class="spinner"></div>
     </div>
   </div> -->
-  <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas"></canvas>
+  <div id="unity-container" style="position: absolute; width: 100%; height: 100%">
+    <canvas id="unity-canvas" width=960 height=600 style="width: 100%; height: 100%"></canvas>
   </div>
   <div id="loading-cover" style="display:none;">
     <div id="unity-logo"><img src="logo.png"></div>
@@ -36,19 +36,35 @@
   </div>
   <div id="unity-fullscreen-button" style="display: none;"></div>
   <script data-consolejs-channel="45be322b-69cf-249f-53eb-4dd0c70a386f" src="https://remotejs.com/agent/agent.js"></script>
+  
   <script>
     const hideFullScreenButton = "true";
+    var dataFile = "/WebGL_Build.data"; 
+    var c = document.createElement("canvas");                                 
+    var gl = c.getContext("webgl"); 
+    var gl2 = c.getContext("webgl2");
+
+    if ((gl && gl.getExtension('WEBGL_compressed_texture_astc')) || (gl2 &&   
+              gl2.getExtension('WEBGL_compressed_texutre_astc'))) {             
+        dataFile =  "/WebGL_Mobile.data";                                       
+      }
+
+    
+
     const buildUrl = "Build";
-    const loaderUrl = buildUrl + "/NexShopBR__.loader.js";
+    const loaderUrl = buildUrl + "/WebGL_Build.loader.js";
     const config = {
-      dataUrl: buildUrl + "/NexShopBR__.data",
-      frameworkUrl: buildUrl + "/NexShopBR__.framework.js",
-      codeUrl: buildUrl + "/NexShopBR__.wasm",
+      dataUrl: buildUrl + dataFile,
+      frameworkUrl: buildUrl + "/WebGL_Build.framework.js",
+      codeUrl: buildUrl + "/WebGL_Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "NexShop",
       productVersion: "0.1.0",
     };
+
+    //config.devicePixelRatio = 0;
+    
 
     const container = document.querySelector("#unity-container");
     const canvas = document.querySelector("#unity-canvas");
@@ -77,6 +93,9 @@
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       container.className = "unity-mobile";
       config.devicePixelRatio = 1;
+    } else {
+      container.className = "unity-desktop";
+      config.devicePixelRatio = 0;
     }
     loadingCover.style.display = "";
 
@@ -119,6 +138,10 @@
     function receiveCollectionData(data) {
       let _data = JSON.stringify(data);
       _unityInstance.SendMessage("Bridge", "ReceiveCollectionData", _data);
+    }
+
+    function muteUnMuteAudio() {
+      _unityInstance.SendMessage("Bridge", "MuteUnMuteSound", _data);
     }
 
     function updateLoadingMessage() {
