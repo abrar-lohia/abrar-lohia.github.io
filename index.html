@@ -95,15 +95,6 @@
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       container.className = "unity-mobile";
       config.devicePixelRatio = 0;
-      var desiredCSSWidth = 400;
-      var desiredCSSHeight = 300;
-      var devicePixelRatio = config.devicePixelRatio || 1;
-
-      canvas.width  = desiredCSSWidth  * devicePixelRatio;
-      canvas.height = desiredCSSHeight * devicePixelRatio;
-
-      canvas.style.width  = desiredCSSWidth  + "px";
-      canvas.style.height = desiredCSSHeight + "px";
     } else {
       container.className = "unity-desktop";
       config.devicePixelRatio = 0;
@@ -181,6 +172,10 @@
           spdateAPIDataFromClient(data);
           break;
       }
+    }
+
+    function postMessage(data) {
+
     }
 
     window.addEventListener("message", (event) => {
