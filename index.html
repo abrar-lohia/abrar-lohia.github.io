@@ -143,7 +143,7 @@
     }
 
     function muteUnMuteAudio() {
-      _unityInstance.SendMessage("Bridge", "MuteUnMuteSound", _data);
+      _unityInstance.SendMessage("Bridge", "MuteUnMuteSound", "");
     }
 
     function updateLoadingMessage() {
@@ -186,6 +186,11 @@
         switch (eventObj?.eventName) {
           case "receiveCollectionData": {
             this.receiveCollectionData(event?.data);
+            break;
+          }
+          case "muteUnMuteAudio": {
+            this.muteUnMuteAudio();
+            break;
           }
           default: {
             console.warn("Unknown event");
