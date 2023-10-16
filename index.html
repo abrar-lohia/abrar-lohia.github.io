@@ -27,10 +27,10 @@
     <canvas id="unity-canvas" width=960 height=600 style="width: 100%; height: 100%"></canvas>
   </div>
   <div id="loading-cover" style="display:none;">
-    <div id="unity-logo"><img src="logo.png"></div>
+    <div id="unity-logo"><!--<img src="logo.png">--></div>
     <div id="unity-loading-text">
-      Loading...
-      <span id="loading-percentage">0%</span>
+      <!-- Loading...
+      <span id="loading-percentage">0%</span> -->
     </div>
     <!-- <div class="spinner"></div> -->
   </div>
@@ -108,7 +108,7 @@
         // spinner.style.display = "none";
         // progressBarEmpty.style.display = "";
         //progressBarFull.style.width = `${100 * progress}%`;
-        progressText.textContent = `${Math.floor(progress * 100)}%`;
+        //progressText.textContent = `${Math.floor(progress * 100)}%`;
       }).then((unityInstance) => {
         _unityInstance = unityInstance;
         loadingCover.style.display = "none";
@@ -147,7 +147,7 @@
     }
 
     function updateLoadingMessage() {
-      progressText.textContent = "Done!"
+      //progressText.textContent = "Done!"
     }
 
     function clearLoadingScreen() {
