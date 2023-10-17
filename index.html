@@ -61,6 +61,12 @@
       companyName: "DefaultCompany",
       productName: "NexShop",
       productVersion: "0.1.0",
+      cacheControl: function (url) {
+        if (url.match(/\.data/) || url.match(/\.bundle/)) {
+          return "must-revalidate";
+        }
+        return "no-store";
+      },
     };
 
     //config.devicePixelRatio = 0;
