@@ -194,7 +194,18 @@
     }
 
     function virtualStoreLoaded() {
-      VirtualStoreBridge.VirtualStoreLoaded();
+      
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.VirtualStoreLoaded.postMessage();
+        console.log("iOS Device");
+      } else if (/Android/i.test(navigator.userAgent)) {
+        VirtualStoreBridge.VirtualStoreLoaded();  
+        console.log("Android Device");
+      } 
+    }
+
+    function onSDKLaunched() {
+      VirtualStoreBridge.OnSDKLaunched();
     }
 
     function receiveProductData(message) {
@@ -209,7 +220,7 @@
       VirtualStoreBridge.OnErrorMessage(message);
     }
 
-    /*window.addEventListener("message", (event) => {
+    window.addEventListener("message", (event) => {
       console.log("Event received = ", event)
       try {
         const eventObj = event?.data ? JSON.parse(event?.data) : ""
@@ -230,7 +241,7 @@
       } catch (e) {
 
       }
-    });*/
+    });
 
   </script>
 </body>
