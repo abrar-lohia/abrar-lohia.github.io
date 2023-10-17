@@ -178,6 +178,30 @@
 
     }
 
+    function InitVirtualStore(userAgent, productCollectionJSON) {
+      var payload = {
+        "userAgent": userAgent,
+        "collectionData": productCollectionJSON
+      };
+      _unityInstance.SendMessage("Bridge", "InitVirtualStore", JSON.stringify(payload));
+    }
+
+    function virtualStoreLoaded() {
+      VirtualStoreBridge.VirtualStoreLoaded();
+    }
+
+    function receiveProductData(message) {
+      VirtualStoreBridge.ReceiveProductData(message);
+    }
+
+    function onSuccessMessage(message) {
+      VirtualStoreBridge.OnSuccessMessage(message);
+    }
+
+    function onErrorMessage(message) {
+      VirtualStoreBridge.OnErrorMessage(message);
+    }
+
     window.addEventListener("message", (event) => {
       console.log("Event received = ", event)
       try {
