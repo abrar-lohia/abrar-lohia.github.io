@@ -183,6 +183,7 @@
         "userAgent": userAgent,
         "collectionData": productCollectionJSON
       };
+      console.log("Payload " + payload);
       _unityInstance.SendMessage("Bridge", "InitVirtualStore", JSON.stringify(payload));
     }
 
