@@ -39,7 +39,7 @@
   
   <script>
     const hideFullScreenButton = "true";
-    var dataFile = "/WebGL_Build.data"; 
+    var dataFile = "/WebGL_Build.data.unityweb"; 
     var c = document.createElement("canvas");                                 
     var gl = c.getContext("webgl"); 
     var gl2 = c.getContext("webgl2");
@@ -55,14 +55,14 @@
     const loaderUrl = buildUrl + "/WebGL_Build.loader.js";
     const config = {
       dataUrl: buildUrl + dataFile,
-      frameworkUrl: buildUrl + "/WebGL_Build.framework.js",
-      codeUrl: buildUrl + "/WebGL_Build.wasm",
+      frameworkUrl: buildUrl + "/WebGL_Build.framework.js.unityweb",
+      codeUrl: buildUrl + "/WebGL_Build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "NexShop",
       productVersion: "0.1.0",
       cacheControl: function (url) {
-        if (url.match(/\.data/) || url.match(/\.bundle/)) {
+        if (url.match(/\.data/) || url.match(/\.bundle/) || url.match(/\.data\.unityweb/)) {
           return "must-revalidate";
         }
         return "no-store";
