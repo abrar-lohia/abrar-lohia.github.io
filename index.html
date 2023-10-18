@@ -39,7 +39,7 @@
   
   <script>
     const hideFullScreenButton = "true";
-    var dataFile = "/WebGL_Build.data.unityweb"; 
+    var dataFile = "/WebGL_Build.data"; 
     var c = document.createElement("canvas");                                 
     var gl = c.getContext("webgl"); 
     var gl2 = c.getContext("webgl2");
@@ -55,8 +55,8 @@
     const loaderUrl = buildUrl + "/WebGL_Build.loader.js";
     const config = {
       dataUrl: buildUrl + dataFile,
-      frameworkUrl: buildUrl + "/WebGL_Build.framework.js.unityweb",
-      codeUrl: buildUrl + "/WebGL_Build.wasm.unityweb",
+      frameworkUrl: buildUrl + "/WebGL_Build.framework.js",
+      codeUrl: buildUrl + "/WebGL_Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "NexShop",
