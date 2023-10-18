@@ -186,7 +186,7 @@
 
     function InitVirtualStore(userAgent, productCollectionJSON) {
       var payload = {
-        "userAgent": navigator.userAgent,
+        "userAgent": userAgent,
         "collectionData": productCollectionJSON
       };
       console.log("Payload " + JSON.stringify(payload));
