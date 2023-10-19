@@ -205,19 +205,48 @@
     }
 
     function onSDKLaunched() {
-      VirtualStoreBridge.OnSDKLaunched();
+
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.OnSDKLaunched.postMessage();
+        console.log("iOS Device");
+      } else if (/Android/i.test(navigator.userAgent)) {
+        VirtualStoreBridge.OnSDKLaunched();
+        console.log("Android Device");
+      } 
+
+      
     }
 
     function receiveProductData(message) {
-      VirtualStoreBridge.ReceiveProductData(message);
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.ReceiveProductData.postMessage(message);
+        console.log("iOS Device");
+      } else if (/Android/i.test(navigator.userAgent)) {
+        VirtualStoreBridge.ReceiveProductData(message);
+        console.log("Android Device");
+      }
+      
     }
 
     function onSuccessMessage(message) {
-      VirtualStoreBridge.OnSuccessMessage(message);
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.OnSuccessMessage.postMessage(message);
+        console.log("iOS Device");
+      } else if (/Android/i.test(navigator.userAgent)) {
+        VirtualStoreBridge.OnSuccessMessage(message);
+        console.log("Android Device");
+      }
+      
     }
 
     function onErrorMessage(message) {
-      VirtualStoreBridge.OnErrorMessage(message);
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.OnErrorMessage.postMessage(message);
+        console.log("iOS Device");
+      } else if (/Android/i.test(navigator.userAgent)) {
+        VirtualStoreBridge.OnErrorMessage(message);
+        console.log("Android Device");
+      }
     }
 
     window.addEventListener("message", (event) => {
