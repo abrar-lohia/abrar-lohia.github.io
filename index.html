@@ -206,14 +206,14 @@
 
     function onSDKLaunched() {
 
-      /*if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.OnSDKLaunched.postMessage("*");
+        console.log("iOS Device");
       } else if (/Android/i.test(navigator.userAgent)) {
         VirtualStoreBridge.OnSDKLaunched();
         console.log("Android Device");
-      } */
-      window.webkit.messageHandlers.OnSDKLaunched.postMessage("*");
-        console.log("iOS Device");
+      } 
+      
       
     }
 
