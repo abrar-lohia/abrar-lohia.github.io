@@ -35,7 +35,7 @@
     <!-- <div class="spinner"></div> -->
   </div>
   <div id="unity-fullscreen-button" style="display: none;"></div>
-  <script data-consolejs-channel="e409d82c-a3a3-9c74-02e4-9d36d29a9a19" src="https://remotejs.com/agent/agent.js"></script>
+  <script data-consolejs-channel="45be322b-69cf-249f-53eb-4dd0c70a386f" src="https://remotejs.com/agent/agent.js"></script>
   
   <script>
     const hideFullScreenButton = "true";
@@ -207,13 +207,13 @@
     function onSDKLaunched() {
 
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        window.webkit.messageHandlers.OnSDKLaunched.postMessage("*");
+        window.webkit.messageHandlers.OnSDKLaunched.postMessage();
         console.log("iOS Device");
       } else if (/Android/i.test(navigator.userAgent)) {
         VirtualStoreBridge.OnSDKLaunched();
         console.log("Android Device");
       } 
-      
+
       
     }
 
@@ -248,6 +248,11 @@
         console.log("Android Device");
       }
     }
+
+    /*function OnSDKInitialize() {
+      
+      window.parent.OnSDKInitialized();
+    }*/
 
     window.addEventListener("message", (event) => {
       console.log("Event received = ", event)
