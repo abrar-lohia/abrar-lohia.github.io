@@ -63,7 +63,11 @@
       productVersion: "0.1.0",
       cacheControl: function (url) {
         if (url.match(/\.data/) || url.match(/\.bundle/) || url.match(/\.data\.unityweb/)) {
-          return "must-revalidate";
+          if(/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            return "no-store";
+          } else {
+            return "must-revalidate";
+          }
         }
         return "no-store";
       },
