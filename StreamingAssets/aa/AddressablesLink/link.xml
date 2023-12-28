@@ -1,0 +1,53 @@
+<linker>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="CXR.AvatarSDK.AvatarBeardConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarBodyConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarEmotionConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarFaceConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarHairConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarPoseConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarSizeConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.BackgroundConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.BottomOutfitConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.CameraConfigData" preserve="all" />
+    <type fullname="CXR.AvatarSDK.GlassesOutfitConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.HeadOutfitConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.ShoesOutfitConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.TopOutfitConfig" preserve="all" />
+    <type fullname="CXR.AvatarSDK.AvatarBottomOutfitData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarGlassesOutfitData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarShoesOutfitData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarTopOutfitData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarEmotionData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarPoseData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.FaceblendShapeData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.StudioBackgroundData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarBeardDatas" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarBodyData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarFaceData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarHairData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarHeadOutfitData" preserve="nothing" serialized="true" />
+    <type fullname="CXR.AvatarSDK.AvatarSizeData" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AnimationClip" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+  </assembly>
+</linker>
