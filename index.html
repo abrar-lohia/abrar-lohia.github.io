@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>GofyndAvatar</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body class="dark">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png"></div>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div id="unity-fullscreen-button" style="display: none;"></div>
+    <script>
+      const hideFullScreenButton = "true";
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/avatar-sdk-optimize.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/avatar-sdk-optimize.data.unityweb",
+        frameworkUrl: buildUrl + "/avatar-sdk-optimize.framework.js.unityweb",
+        codeUrl: buildUrl + "/avatar-sdk-optimize.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Gofynd",
+        productName: "GofyndAvatar",
+        productVersion: "0.6",
+        cacheControl: function (url) {
+        if (url.match(/\.data/) || url.match(/\.data\.unityweb/)) {
+          return "must-revalidate";
+        }
+        return "no-store";
+        },
+      };
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      const spinner = document.querySelector('.spinner');
+
+      const canFullscreen = (function() {
+        for (const key of [
+            'exitFullscreen',
+            'webkitExitFullscreen',
+            'webkitCancelFullScreen',
+            'mozCancelFullScreen',
+            'msExitFullscreen',
+          ]) {
+          if (key in document) {
+            return true;
+          }
+        }
+        return false;
+      }());
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 0;
+      }
+      loadingCover.style.display = "";
+
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+        }).then((unityInstance) => {
+          loadingCover.style.display = "none";
+          if (canFullscreen) {
+            if (!hideFullScreenButton) {
+              fullscreenButton.style.display = "";
+            }
+            fullscreenButton.onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          }
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+
+      function receiveBase64Image(platform, image64String, message) {
+        var img = 'data:image/png;base64,' + image64String;
+        shareBase64CodeToNative(platform, image64String, message);
+      }
+
+      function shareBase64CodeToNative(platform, imageCode, message) {
+
+        var payload = {
+          'platform': platform,
+          'image64String': imageCode,
+          'message':message
+        };
+        console.log('payload ', payload);
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          window.webkit.messageHandlers.OnImageDataShared.postMessage(JSON.stringify(payload));
+          console.log("iOS Device");
+        } else if (/Android/i.test(navigator.userAgent)) {
+          AvatarSDKBridge.OnImageDataShared(JSON.stringify(payload));
+          console.log("Android Device");
+        }
+      }
+
+   // Check if the device is in portrait mode
+function isPortrait() {
+    //return window.innerHeight > window.innerWidth;
+    return true;
+}
+
+// Load Unity only if in portrait mode
+if (isPortrait()) {
+    const hideFullScreenButton = "true";
+    const buildUrl = "Build";
+    const loaderUrl = buildUrl + "/avatar-sdk-optimize.loader.js";
+    const config = {
+      dataUrl: buildUrl + dataFile,
+      frameworkUrl: buildUrl + "/avatar-sdk-optimize.framework.js.unityweb",
+      codeUrl: buildUrl + "/avatar-sdk-optimize.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+      companyName: "Gofynd",
+      productName: "GofyndAvatar",
+      productVersion: "0.6",
+      width: 720,
+      height: 1280,
+      cacheControl: function (url) {
+        if (url.match(/\.data/) || url.match(/\.data\.unityweb/)) {
+          return "must-revalidate";
+        }
+        return "no-store";
+      },
+    };
+
+    // Set a fixed resolution for the canvas
+    canvas.width = config.width;
+    canvas.height = config.height;
+
+    // Set the initial window size for better control (Electron-specific)
+    if (typeof require === "function") {
+        const { remote } = require('electron');
+        const currentWindow = remote.getCurrentWindow();
+        currentWindow.setSize(config.width, config.height);
+    }
+
+    // Rest of your existing script...
+} else {
+    // Add empty space on the left and right sides in landscape mode
+    const landscapeWidth = 720; // Set the desired width for landscape mode
+    const landscapeHeight = 1280; // Set the desired height for landscape mode
+    const emptySpaceWidth = window.innerWidth - landscapeWidth;
+    const emptySpaceStyle = `margin-left: ${emptySpaceWidth / 2}px; margin-right: ${emptySpaceWidth / 2}px;`;
+
+    // Set a fixed resolution for the canvas
+    canvas.width = landscapeWidth;
+    canvas.height = landscapeHeight;
+
+    // Set the initial window size for better control (Electron-specific)
+    if (typeof require === "function") {
+        const { remote } = require('electron');
+        const currentWindow = remote.getCurrentWindow();
+        currentWindow.setSize(landscapeWidth, landscapeHeight);
+    }
+
+    // Apply empty space by adjusting container size
+    container.style.width = `${landscapeWidth}px`;
+    container.style.height = `${landscapeHeight}px`;
+    container.style.cssText += emptySpaceStyle;
+
+    // Display a message encouraging users to switch to portrait mode
+    const landscapeMessage = document.createElement("div");
+    landscapeMessage.innerHTML = "<p>Please rotate your device to portrait mode for the best experience.</p>";
+    landscapeMessage.style.position = "fixed";
+    landscapeMessage.style.top = "0";
+    landscapeMessage.style.left = "0";
+    landscapeMessage.style.width = "100%";
+    landscapeMessage.style.height = "100%";
+    landscapeMessage.style.background = "rgba(0, 0, 0, 0.8)";
+    landscapeMessage.style.color = "#fff";
+    landscapeMessage.style.fontSize = "20px";
+    landscapeMessage.style.display = "flex";
+    landscapeMessage.style.justifyContent = "center";
+    landscapeMessage.style.alignItems = "center";
+    document.body.appendChild(landscapeMessage);
+  }
+
+    </script>
+  </body>
+</html>
