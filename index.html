@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+        /* Style the button container */
+        .button-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+          }
+    
+          /* Style individual buttons */
+          .button-container button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          }
+    
+          .button-container button:hover {
+            background-color: #0056b3;
+          }
+      </style>
+  </head>
+  <body>
+    <div class="button-container">
+        <button onclick="switchModel(1)">Mario</button>
+        <button onclick="switchModel(2)">Deadpool</button>
+        <button onclick="switchModel(3)">Old Man</button>
+    </div>
+    <div id="arContainer"></div>
+
+    <script>
+      function switchModel(index) {
+        const arContainer = document.querySelector('#arContainer');
+
+        // Clear the existing scene
+        arContainer.innerHTML = '';
+
+        // Create a new scene with the updated mindar-image and model
+        let targetSrc, planeSrc, modelSrc;
+        
+        if (index === 1) {
+          targetSrc = 'mario.mind';
+          planeSrc = '#card1';
+          modelSrc = '#model1';
+        } else if (index === 2) {
+          targetSrc = 'deadpool.mind';
+          planeSrc = '#card2';
+          modelSrc = '#model2';
+        } else if (index === 3) {
+          targetSrc = 'old_man.mind';
+          planeSrc = '#card3';
+          modelSrc = '#model3';
+        }
+
+        // Dynamically recreate the AR scene with the new image target and model
+        arContainer.innerHTML = `
+          <a-scene mindar-image="imageTargetSrc: ${targetSrc};" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
+            <a-assets>
+              <img id="card1" src="mario_toy.jpeg" />
+              <img id="card2" src="deadpool_lego.jpeg" />
+              <img id="card3" src="old_man.webp" />
+
+              <a-asset-item id="model1" src="mario.glb"></a-asset-item>
+              <a-asset-item id="model2" src="deadpool.glb"></a-asset-item>
+              <a-asset-item id="model3" src="old_man.glb"></a-asset-item>
+            </a-assets>
+
+            <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+            <a-entity mindar-image-target="targetIndex: 0">
+              <a-plane src="${planeSrc}" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+              <a-gltf-model src="${modelSrc}" rotation="0 0 0" position="0 0 0.1" scale="1 1 1" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+            </a-entity>
+          </a-scene>
+        `;
+      }
+
+      // Initialize with the first model on page load
+      switchModel(1);
+    </script>
+  </body>
+</html>
