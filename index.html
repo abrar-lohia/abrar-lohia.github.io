@@ -39,6 +39,27 @@
     <div id="arContainer"></div>
 
     <script>
+
+      let currentModel = null;
+      let lastTouchX = 0;
+      let rotationY = 0;
+
+      // Touch event handling for model rotation
+      function handleTouchStart(evt) {
+        lastTouchX = evt.touches[0].clientX;
+      }
+
+      function handleTouchMove(evt) {
+        const touchX = evt.touches[0].clientX;
+        const deltaX = touchX - lastTouchX;
+
+        // Rotate the model based on swipe distance
+        rotationY += deltaX * 0.1; // Adjust the multiplier to control sensitivity
+        currentModel.setAttribute('rotation', `0 ${rotationY} 0`);
+
+        lastTouchX = touchX;
+      }
+
       function switchModel(index) {
         const arContainer = document.querySelector('#arContainer');
 
@@ -46,29 +67,27 @@
         arContainer.innerHTML = '';
 
         // Create a new scene with the updated mindar-image and model
-        let targetSrc, planeSrc, modelSrc;
+        let targetSrc, modelSrc;
         
         if (index === 1) {
           targetSrc = 'mario.mind';
-          planeSrc = '#card1';
+          
           modelSrc = '#model1';
         } else if (index === 2) {
           targetSrc = 'deadpool.mind';
-          planeSrc = '#card2';
+          
           modelSrc = '#model2';
         } else if (index === 3) {
           targetSrc = 'old_man.mind';
-          planeSrc = '#card3';
+          
           modelSrc = '#model3';
         }
 
         // Dynamically recreate the AR scene with the new image target and model
         arContainer.innerHTML = `
-          <a-scene mindar-image="imageTargetSrc: ${targetSrc};" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
+          <a-scene mindar-image="filterMinCF:0.1; imageTargetSrc: ${targetSrc}; filterBeta: 10;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
             <a-assets>
-              <img id="card1" src="mario_toy.jpeg" />
-              <img id="card2" src="deadpool_lego.jpeg" />
-              <img id="card3" src="old_man.webp" />
+
 
               <a-asset-item id="model1" src="mario.glb"></a-asset-item>
               <a-asset-item id="model2" src="deadpool.glb"></a-asset-item>
@@ -78,11 +97,16 @@
             <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
             <a-entity mindar-image-target="targetIndex: 0">
-              <a-plane src="${planeSrc}" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
               <a-gltf-model src="${modelSrc}" rotation="0 0 0" position="0 0 0.1" scale="1 1 1" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
             </a-entity>
           </a-scene>
         `;
+
+        currentModel = document.querySelector('#model');
+        const scene = document.querySelector('a-scene');
+
+        scene.addEventListener('touchstart', handleTouchStart);
+        scene.addEventListener('touchmove', handleTouchMove);
       }
 
       // Initialize with the first model on page load
