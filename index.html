@@ -71,10 +71,9 @@
         }
 
         // Clear the existing scene
-        arContainer.innerHTML = '';
-
-        // Create a new scene with the updated mindar-image and model
-        let targetSrc, modelSrc;
+        
+        setTimeout(() => {
+          let targetSrc, modelSrc;
         
         if (index === 1) {
           targetSrc = 'mario.mind';
@@ -108,6 +107,9 @@
             </a-entity>
           </a-scene>
         `;
+        }, 100)
+        // Create a new scene with the updated mindar-image and model
+        
 
         currentModel = document.querySelector('#model');
         const scene = document.querySelector('a-scene');
