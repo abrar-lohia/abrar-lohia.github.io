@@ -28,6 +28,9 @@
           .button-container button:hover {
             background-color: #0056b3;
           }
+          a-scene {
+            touch-action: none; /* Prevent default scrolling/pinch actions */
+          }
       </style>
   </head>
   <body>
@@ -62,6 +65,10 @@
 
       function switchModel(index) {
         const arContainer = document.querySelector('#arContainer');
+        const existingScene = document.querySelector('a-scene');
+        if (existingScene) {
+          existingScene.parentNode.removeChild(existingScene);
+        }
 
         // Clear the existing scene
         arContainer.innerHTML = '';
