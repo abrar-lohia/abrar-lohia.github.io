@@ -2,9 +2,9 @@ name: Jekyll site CI
 
 on:
   push:
-    branches: [ "mind-ar" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "mind-ar" ]
+    branches: [ "main" ]
 
 jobs:
   build:
