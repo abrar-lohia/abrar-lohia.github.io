@@ -85,7 +85,7 @@
 
         // Dynamically recreate the AR scene with the new image target and model
         arContainer.innerHTML = `
-          <a-scene mindar-image="filterMinCF:0.1; imageTargetSrc: ${targetSrc}; filterBeta: 10;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
+          <a-scene mindar-image="missTolerance: 1; warmupTolerance: 1; filterMinCF:0.01; imageTargetSrc: ${targetSrc}; filterBeta: 20;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true">
             <a-assets>
 
 
