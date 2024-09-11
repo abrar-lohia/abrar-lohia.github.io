@@ -40,7 +40,7 @@ export class ARViewer {
     createScene() {
       const arContainer = document.querySelector(`#${this.targetId}`);
       arContainer.innerHTML = `
-        <a-scene mindar-image="imageTargetSrc: ${this.mindFile}; autoStart: false; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false">
+        <a-scene mindar-image="imageTargetSrc: ${this.mindFile}; autoStart: false; filterMinCF:0.0001; filterBeta: 0.001;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
           <a-assets>
             <a-asset-item id="dynamicModel" src="${this.modelFile}"></a-asset-item>
           </a-assets>
