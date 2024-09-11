@@ -54,7 +54,8 @@ export function launchSDK(mindFile, modelFile) {
 function enableModelControls() {
     let initialTouchX = 0;
     let initialTouchY = 0;
-    let currentRotationY = 0;
+    let currentRotationY = 0; // Rotation around Y-axis (left-right)
+    let currentRotationX = 0; // Rotation around X-axis (up-down)
     let initialDistance = 0;
     let currentScale = 1;
     const minScale = 1; // Define the minimum scale (default scale)
@@ -66,6 +67,7 @@ function enableModelControls() {
       if (event.touches.length === 1) {
         // Single touch for rotation
         initialTouchX = event.touches[0].clientX;
+        initialTouchY = event.touches[0].clientY;
       } else if (event.touches.length === 2) {
         // Two fingers for scaling
         initialDistance = getDistance(event.touches[0], event.touches[1]);
@@ -76,10 +78,22 @@ function enableModelControls() {
       if (event.touches.length === 1) {
         // Single touch (swipe for rotation)
         const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        
+        // Calculate change in both X (horizontal) and Y (vertical) movement
         const deltaX = touchX - initialTouchX;
-        currentRotationY += deltaX * 0.1; // Adjust multiplier to control rotation speed
-        model.setAttribute('rotation', `0 ${currentRotationY} 0`);
-        initialTouchX = touchX; // Update the starting point for continuous rotation
+        const deltaY = touchY - initialTouchY;
+  
+        // Update rotations based on touch movement
+        currentRotationY += deltaX * 0.1; // Rotate around Y-axis for horizontal swipe
+        currentRotationX -= deltaY * 0.1; // Rotate around X-axis for vertical swipe
+  
+        // Apply the new rotation to the model
+        model.setAttribute('rotation', `${currentRotationX} ${currentRotationY} 0`);
+  
+        // Update initial touch coordinates for continuous rotation
+        initialTouchX = touchX;
+        initialTouchY = touchY;
       } else if (event.touches.length === 2) {
         // Two fingers (pinch-to-zoom for scaling)
         const newDistance = getDistance(event.touches[0], event.touches[1]);
@@ -99,4 +113,4 @@ function enableModelControls() {
       const dy = touch2.clientY - touch1.clientY;
       return Math.sqrt(dx * dx + dy * dy);
     }
-  }
+}
