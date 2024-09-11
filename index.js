@@ -85,8 +85,8 @@ function enableModelControls() {
         const deltaY = touchY - initialTouchY;
   
         // Update rotations based on touch movement
-        currentRotationY += deltaX * 0.1; // Rotate around Y-axis for horizontal swipe
-        currentRotationX -= deltaY * 0.1; // Rotate around X-axis for vertical swipe
+        currentRotationY += deltaX * 0.2; // Rotate around Y-axis for horizontal swipe
+        currentRotationX += deltaY * 0.2; // Rotate around X-axis for vertical swipe
   
         // Apply the new rotation to the model
         model.setAttribute('rotation', `${currentRotationX} ${currentRotationY} 0`);
