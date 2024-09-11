@@ -57,6 +57,7 @@ function enableModelControls() {
     let currentRotationY = 0;
     let initialDistance = 0;
     let currentScale = 1;
+    const minScale = 1; // Define the minimum scale (default scale)
   
     const model = document.querySelector('a-gltf-model'); // Select the 3D model
   
@@ -84,6 +85,9 @@ function enableModelControls() {
         const newDistance = getDistance(event.touches[0], event.touches[1]);
         const scaleChange = newDistance / initialDistance;
         currentScale *= scaleChange; // Adjust the scale based on pinch distance
+  
+        // Apply the scale but ensure it's not smaller than the minimum scale
+        currentScale = Math.max(currentScale, minScale); // Limit the scale to the minimum value
         model.setAttribute('scale', `${currentScale} ${currentScale} ${currentScale}`);
         initialDistance = newDistance; // Update the starting distance for continuous scaling
       }
@@ -95,4 +99,4 @@ function enableModelControls() {
       const dy = touch2.clientY - touch1.clientY;
       return Math.sqrt(dx * dx + dy * dy);
     }
-}
+  }
