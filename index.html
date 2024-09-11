@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AR Model Selection</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      .option {
+        margin: 10px;
+        padding: 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        text-align: center;
+        width: 200px;
+      }
+
+      .option:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Select a Model</h1>
+      <button class="option" onclick="launchSDK('resources/mario.mind', 'resources/mario.glb')">Mario</button>
+      <button class="option" onclick="launchSDK('resources/deadpool.mind', 'resources/deadpool.glb')">Deadpool</button>
+      <button class="option" onclick="launchSDK('resources/old_man.mind', 'resources/old_man.glb')">Old Man</button>
+    </div>
+
+    <script>
+      // Function to launch the SDK page with the selected mindFile and modelFile
+      function launchSDK(mindFile, modelFile) {
+        const url = `sdk.html?mindFile=${encodeURIComponent(mindFile)}&modelFile=${encodeURIComponent(modelFile)}`;
+        window.location.href = url;
+      }
+    </script>
+  </body>
+</html>
